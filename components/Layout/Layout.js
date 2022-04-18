@@ -10,9 +10,9 @@ function Layout({ children }) {
 
 			<Navbar />
 
-			{/* <Container style={{ paddingTop: "1rem" }} text>
+			<Container style={{ paddingTop: "1rem" }} text>
 				{children}
-			</Container> */}
+			</Container>
 		</>
 	);
 }
