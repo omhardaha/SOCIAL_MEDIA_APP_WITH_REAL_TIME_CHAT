@@ -29,8 +29,8 @@ export const loginUser = async (user, setError, setLoading) => {
 	setLoading(true);
 	try {
 		const res = await axios.post(`${baseUrl}/api/auth`, { user });
-        console.log(res.data)
-		// setToken(res.data);
+        // console.log(res.data)
+		setToken(res.data);
 	} catch (error) {
 		const errorMsg = catchErrors(error);
 		setError(errorMsg);
@@ -38,7 +38,25 @@ export const loginUser = async (user, setError, setLoading) => {
 	setLoading(false);
 };
 
+export const redirectUser = (ctx,location)=>{
+    if(ctx.req){
+        ctx.res.writeHead(302,{Location:location})
+        ctx.res.end();
+    }else{
+        Router.push(location)
+    }
+}
+
 const setToken = (token) => {
+    // console.log("oush");
 	cookie.set("token", token);
 	Router.push("/");
 };
+
+export const logoutUser = email => {
+    cookie.set("userEmail", email);
+    cookie.remove("token");
+    Router.push("/login");
+    Router.reload();
+  };
+  
